@@ -82,8 +82,10 @@ Python 3.10+ is the supported syntax floor. Local behavior was exercised on Pyth
 ## Development and verification
 
 ```sh
+python -m pip install build setuptools wheel
 python scripts/verify.py
 python -m build --no-isolation
+python scripts/check_sdist.py dist/stridelens-0.1.0.tar.gz
 ```
 
 The tests use real CPU tensors, direct scalar addresses as an independent mapping reference, known disjoint/overlapping cases, unaligned shared buffers, malformed reports, and CLI subprocesses. Review regressions include empty huge-axis allocation and contradictory metadata. Tests are not a proof of correctness or a measure of adoption.
