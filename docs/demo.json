@@ -1,0 +1,442 @@
+{
+  "schema": "stridelens.snapshot.v1",
+  "producer": {
+    "name": "stridelens",
+    "version": "0.1.0",
+    "torch": "2.12.0+cpu"
+  },
+  "limits": {
+    "max_elements": 4096,
+    "max_tensors": 32
+  },
+  "tensors": [
+    {
+      "name": "base",
+      "shape": [
+        3,
+        4
+      ],
+      "strides_elements": [
+        4,
+        1
+      ],
+      "storage_offset_elements": 0,
+      "element_size": 4,
+      "storage_id": "S1",
+      "storage_nbytes": 48,
+      "numel": 12,
+      "contiguous": true,
+      "enumeration": "complete",
+      "offsets_bytes": [
+        0,
+        4,
+        8,
+        12,
+        16,
+        20,
+        24,
+        28,
+        32,
+        36,
+        40,
+        44
+      ],
+      "unique_bytes": 48,
+      "internal_overlap": false,
+      "merge_barriers": []
+    },
+    {
+      "name": "transpose",
+      "shape": [
+        4,
+        3
+      ],
+      "strides_elements": [
+        1,
+        4
+      ],
+      "storage_offset_elements": 0,
+      "element_size": 4,
+      "storage_id": "S1",
+      "storage_nbytes": 48,
+      "numel": 12,
+      "contiguous": false,
+      "enumeration": "complete",
+      "offsets_bytes": [
+        0,
+        16,
+        32,
+        4,
+        20,
+        36,
+        8,
+        24,
+        40,
+        12,
+        28,
+        44
+      ],
+      "unique_bytes": 48,
+      "internal_overlap": false,
+      "merge_barriers": [
+        {
+          "left_axis": 0,
+          "right_axis": 1,
+          "left_stride": 1,
+          "required_stride": 12
+        }
+      ]
+    },
+    {
+      "name": "even columns",
+      "shape": [
+        3,
+        2
+      ],
+      "strides_elements": [
+        4,
+        2
+      ],
+      "storage_offset_elements": 0,
+      "element_size": 4,
+      "storage_id": "S1",
+      "storage_nbytes": 48,
+      "numel": 6,
+      "contiguous": false,
+      "enumeration": "complete",
+      "offsets_bytes": [
+        0,
+        8,
+        16,
+        24,
+        32,
+        40
+      ],
+      "unique_bytes": 24,
+      "internal_overlap": false,
+      "merge_barriers": []
+    },
+    {
+      "name": "odd columns",
+      "shape": [
+        3,
+        2
+      ],
+      "strides_elements": [
+        4,
+        2
+      ],
+      "storage_offset_elements": 1,
+      "element_size": 4,
+      "storage_id": "S1",
+      "storage_nbytes": 48,
+      "numel": 6,
+      "contiguous": false,
+      "enumeration": "complete",
+      "offsets_bytes": [
+        4,
+        12,
+        20,
+        28,
+        36,
+        44
+      ],
+      "unique_bytes": 24,
+      "internal_overlap": false,
+      "merge_barriers": []
+    },
+    {
+      "name": "reshape copy",
+      "shape": [
+        12
+      ],
+      "strides_elements": [
+        1
+      ],
+      "storage_offset_elements": 0,
+      "element_size": 4,
+      "storage_id": "S2",
+      "storage_nbytes": 48,
+      "numel": 12,
+      "contiguous": true,
+      "enumeration": "complete",
+      "offsets_bytes": [
+        0,
+        4,
+        8,
+        12,
+        16,
+        20,
+        24,
+        28,
+        32,
+        36,
+        40,
+        44
+      ],
+      "unique_bytes": 48,
+      "internal_overlap": false,
+      "merge_barriers": []
+    },
+    {
+      "name": "broadcast",
+      "shape": [
+        3,
+        4
+      ],
+      "strides_elements": [
+        0,
+        1
+      ],
+      "storage_offset_elements": 0,
+      "element_size": 4,
+      "storage_id": "S1",
+      "storage_nbytes": 48,
+      "numel": 12,
+      "contiguous": false,
+      "enumeration": "complete",
+      "offsets_bytes": [
+        0,
+        4,
+        8,
+        12,
+        0,
+        4,
+        8,
+        12,
+        0,
+        4,
+        8,
+        12
+      ],
+      "unique_bytes": 16,
+      "internal_overlap": true,
+      "merge_barriers": [
+        {
+          "left_axis": 0,
+          "right_axis": 1,
+          "left_stride": 0,
+          "required_stride": 4
+        }
+      ]
+    },
+    {
+      "name": "empty",
+      "shape": [
+        0,
+        4
+      ],
+      "strides_elements": [
+        4,
+        1
+      ],
+      "storage_offset_elements": 0,
+      "element_size": 4,
+      "storage_id": "S1",
+      "storage_nbytes": 48,
+      "numel": 0,
+      "contiguous": true,
+      "enumeration": "complete",
+      "offsets_bytes": [],
+      "unique_bytes": 0,
+      "internal_overlap": false,
+      "merge_barriers": []
+    }
+  ],
+  "pairs": [
+    {
+      "a": "base",
+      "b": "transpose",
+      "same_storage_region": true,
+      "overlap": "yes",
+      "overlap_bytes": 48,
+      "basis": "enumerated_bytes"
+    },
+    {
+      "a": "base",
+      "b": "even columns",
+      "same_storage_region": true,
+      "overlap": "yes",
+      "overlap_bytes": 24,
+      "basis": "enumerated_bytes"
+    },
+    {
+      "a": "base",
+      "b": "odd columns",
+      "same_storage_region": true,
+      "overlap": "yes",
+      "overlap_bytes": 24,
+      "basis": "enumerated_bytes"
+    },
+    {
+      "a": "base",
+      "b": "reshape copy",
+      "same_storage_region": false,
+      "overlap": "no",
+      "overlap_bytes": 0,
+      "basis": "disjoint_bounds"
+    },
+    {
+      "a": "base",
+      "b": "broadcast",
+      "same_storage_region": true,
+      "overlap": "yes",
+      "overlap_bytes": 16,
+      "basis": "enumerated_bytes"
+    },
+    {
+      "a": "base",
+      "b": "empty",
+      "same_storage_region": true,
+      "overlap": "no",
+      "overlap_bytes": 0,
+      "basis": "empty"
+    },
+    {
+      "a": "transpose",
+      "b": "even columns",
+      "same_storage_region": true,
+      "overlap": "yes",
+      "overlap_bytes": 24,
+      "basis": "enumerated_bytes"
+    },
+    {
+      "a": "transpose",
+      "b": "odd columns",
+      "same_storage_region": true,
+      "overlap": "yes",
+      "overlap_bytes": 24,
+      "basis": "enumerated_bytes"
+    },
+    {
+      "a": "transpose",
+      "b": "reshape copy",
+      "same_storage_region": false,
+      "overlap": "no",
+      "overlap_bytes": 0,
+      "basis": "disjoint_bounds"
+    },
+    {
+      "a": "transpose",
+      "b": "broadcast",
+      "same_storage_region": true,
+      "overlap": "yes",
+      "overlap_bytes": 16,
+      "basis": "enumerated_bytes"
+    },
+    {
+      "a": "transpose",
+      "b": "empty",
+      "same_storage_region": true,
+      "overlap": "no",
+      "overlap_bytes": 0,
+      "basis": "empty"
+    },
+    {
+      "a": "even columns",
+      "b": "odd columns",
+      "same_storage_region": true,
+      "overlap": "no",
+      "overlap_bytes": 0,
+      "basis": "enumerated_bytes"
+    },
+    {
+      "a": "even columns",
+      "b": "reshape copy",
+      "same_storage_region": false,
+      "overlap": "no",
+      "overlap_bytes": 0,
+      "basis": "disjoint_bounds"
+    },
+    {
+      "a": "even columns",
+      "b": "broadcast",
+      "same_storage_region": true,
+      "overlap": "yes",
+      "overlap_bytes": 8,
+      "basis": "enumerated_bytes"
+    },
+    {
+      "a": "even columns",
+      "b": "empty",
+      "same_storage_region": true,
+      "overlap": "no",
+      "overlap_bytes": 0,
+      "basis": "empty"
+    },
+    {
+      "a": "odd columns",
+      "b": "reshape copy",
+      "same_storage_region": false,
+      "overlap": "no",
+      "overlap_bytes": 0,
+      "basis": "disjoint_bounds"
+    },
+    {
+      "a": "odd columns",
+      "b": "broadcast",
+      "same_storage_region": true,
+      "overlap": "yes",
+      "overlap_bytes": 8,
+      "basis": "enumerated_bytes"
+    },
+    {
+      "a": "odd columns",
+      "b": "empty",
+      "same_storage_region": true,
+      "overlap": "no",
+      "overlap_bytes": 0,
+      "basis": "empty"
+    },
+    {
+      "a": "reshape copy",
+      "b": "broadcast",
+      "same_storage_region": false,
+      "overlap": "no",
+      "overlap_bytes": 0,
+      "basis": "disjoint_bounds"
+    },
+    {
+      "a": "reshape copy",
+      "b": "empty",
+      "same_storage_region": false,
+      "overlap": "no",
+      "overlap_bytes": 0,
+      "basis": "empty"
+    },
+    {
+      "a": "broadcast",
+      "b": "empty",
+      "same_storage_region": true,
+      "overlap": "no",
+      "overlap_bytes": 0,
+      "basis": "empty"
+    }
+  ],
+  "views": [
+    {
+      "tensor": "transpose",
+      "requested_shape": [
+        -1
+      ],
+      "status": "rejected",
+      "result_shape": null,
+      "result_strides": null,
+      "reason": "PyTorch rejected this view. No output tensor was created."
+    },
+    {
+      "tensor": "even columns",
+      "requested_shape": [
+        -1
+      ],
+      "status": "accepted",
+      "result_shape": [
+        6
+      ],
+      "result_strides": [
+        2
+      ],
+      "reason": "PyTorch accepted this view without copying storage."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "stridelens"
+version = "0.1.0"
+description = "Read-only PyTorch tensor layout and byte overlap evidence, in an offline report"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{name = "gedouluhui"}]
+dependencies = []
+keywords = ["pytorch", "tensor", "strides", "debugging", "visualization"]
+
+[project.optional-dependencies]
+capture = ["torch>=2.5,<3"]
+
+[project.scripts]
+stridelens = "stridelens.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+stridelens = ["assets/*.html"]
