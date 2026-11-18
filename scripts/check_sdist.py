@@ -6,7 +6,7 @@ import tarfile
 
 ROOT = Path(__file__).resolve().parents[1]
 REQUIRED = ('LICENSE', 'README.md', 'pyproject.toml', 'MANIFEST.in',
-            'scripts/verify.py', 'scripts/check_sdist.py',
+            'scripts/verify.py', 'scripts/check_sdist.py', 'scripts/check_browser.py',
             'docs/demo.html', 'docs/demo.json')
 
 

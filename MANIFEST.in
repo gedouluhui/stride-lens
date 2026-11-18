@@ -1,5 +1,5 @@
 include LICENSE README.md pyproject.toml MANIFEST.in
-include scripts/verify.py scripts/check_sdist.py
+include scripts/verify.py scripts/check_sdist.py scripts/check_browser.py
 include docs/demo.html docs/demo.json
 recursive-include src/stridelens *.py *.html
 recursive-include tests *.py

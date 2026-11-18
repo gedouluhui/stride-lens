@@ -3,6 +3,7 @@ from itertools import combinations, product
 import json
 import math
 import re
+from .layout import address_set_groups, offset_signature
 
 MAX_JSON_BYTES = 4 * 1024 * 1024
 SAFE_INT = (1 << 53) - 1
@@ -158,6 +159,15 @@ def validate_snapshot(snapshot: dict) -> None:
             if p['same_storage_region'] and a['offsets_bytes'] is not None and b['offsets_bytes'] is not None:
                 exact = len(set(a['offsets_bytes']) & set(b['offsets_bytes'])) * 4
                 _require(count == exact, 'same-region overlap arithmetic mismatch')
+    groups = address_set_groups(tensors)
+    exact_relations = {}
+    for pair in pairs:
+        if pair['overlap'] == 'unknown':
+            continue
+        key = tuple(sorted((groups[pair['a']], groups[pair['b']])))
+        evidence = (pair['overlap'], pair['overlap_bytes'])
+        _require(exact_relations.setdefault(key, evidence) == evidence,
+                 'equivalent address sets have contradictory pair evidence')
     views = snapshot['views']
     _require(type(views) is list and len(views) <= len(tensors), 'invalid views')
     requested = set()
@@ -171,6 +181,9 @@ def validate_snapshot(snapshot: dict) -> None:
         _string(v['reason'], 'view reason', 256)
         _require(type(v['status']) is str and v['status'] in ('accepted', 'rejected'), 'invalid view status')
         if v['status'] == 'accepted':
+            _require(not (-1 in v['requested_shape'] and
+                          math.prod(n for n in v['requested_shape'] if n != -1) == 0),
+                     'accepted view has ambiguous empty-shape inference')
             _vector(v['result_shape'], 'view result'); _vector(v['result_strides'], 'view strides')
             _require(len(v['result_shape']) == len(v['result_strides']), 'view rank mismatch')
             source = by_name[v['tensor']]
@@ -181,6 +194,9 @@ def validate_snapshot(snapshot: dict) -> None:
                 end = (source['storage_offset_elements'] + sum((n-1)*s for n,s in zip(v['result_shape'], v['result_strides']))) * 4 + 4
                 _integer(end, 'view byte extent')
                 _require(end <= source['storage_nbytes'], 'view result outside storage')
+            _require(offset_signature(source['shape'], source['strides_elements'], source['storage_offset_elements']) ==
+                     offset_signature(v['result_shape'], v['result_strides'], source['storage_offset_elements']),
+                     'view changes logical byte addresses')
             if source['offsets_bytes'] is not None:
                 result_offsets = [(source['storage_offset_elements'] + sum(i*s for i,s in zip(index, v['result_strides']))) * 4
                                   for index in (product(*(range(n) for n in v['result_shape'])) if source['numel'] else ())]

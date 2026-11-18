@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+requires = ["setuptools>=77.0.3", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -15,6 +15,7 @@ keywords = ["pytorch", "tensor", "strides", "debugging", "visualization"]
 
 [project.optional-dependencies]
 capture = ["torch>=2.5,<3"]
+browser = ["playwright>=1.49,<2"]
 
 [project.scripts]
 stridelens = "stridelens.__main__:main"

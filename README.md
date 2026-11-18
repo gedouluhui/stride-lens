@@ -68,9 +68,9 @@ Different external storage wrappers can still overlap, including unaligned buffe
 
 - Accepts exact `torch.Tensor`, CPU, strided float32. No CUDA, sparse, quantized, meta, conjugate/negative flags, or tensor subclasses. Explicitly use `parameter.detach()` if appropriate; StrideLens does not do it silently.
 - At most 32 tensors, 16 axes, 128-character names. Enumeration defaults to at most 4,096 elements per tensor; `max_elements` can lower that limit. Large tensors retain metadata and conservative pair conclusions.
-- The page displays the first 256 logical cells. Its index field can inspect another coordinate without claiming that the whole tensor was enumerated.
+- The page displays 64 logical cells at a time. Enter any valid index above the grid to select it and jump to its page; Previous/Next browse contiguous index ranges. Use Left/Right and Home/End from the grid's single keyboard entry. Display paging never changes the analysis budget.
 - No tensor values, model/source code, or raw addresses are exported automatically. **Names and shapes remain metadata you may consider sensitive.** Choose labels carefully before sharing.
-- JSON schema validation checks types, bounds, and arithmetic consistency. It cannot authenticate who created a snapshot or independently prove cross-region overlap once raw addresses are removed. Reports are not signed attestations.
+- JSON validation checks types, bounds, view-address sequence equivalence even beyond the enumeration budget, and consistency of pair conclusions involving provably identical address sets. The view check uses a bounded symbolic floor-sum representation, not element sampling. It cannot authenticate who created a snapshot or independently prove missing cross-region addresses. Reports are not signed attestations.
 - This is not a profiler: no GPU allocation timeline, kernel-copy detection, latency measurement, or speedup claim.
 
 Python 3.10+ is the supported syntax floor. Local behavior was exercised on Python 3.12.3 / torch 2.12.0+cpu. Other versions and real-user usefulness require independent verification; a workflow file alone is not a successful CI run.
@@ -87,6 +87,18 @@ python scripts/verify.py
 python -m build --no-isolation
 python scripts/check_sdist.py dist/stridelens-0.1.0.tar.gz
 ```
+
+Optional real-browser regression (fresh isolated contexts, no shared profile):
+
+```sh
+python -m pip install '.[browser]'
+python -m playwright install chromium
+python scripts/check_browser.py
+# Or use an already installed Edge, without downloading a browser:
+python scripts/check_browser.py --channel msedge
+```
+
+The browser check exercises 360/1280px viewports, arbitrary-index paging, keyboard navigation, visible/accessible labels, reduced-motion controls, unsafe labels, and a real JSON download saved inside a temporary project directory. Missing browser dependencies fail explicitly, rather than count as passing tests.
 
 The tests use real CPU tensors, direct scalar addresses as an independent mapping reference, known disjoint/overlapping cases, unaligned shared buffers, malformed reports, and CLI subprocesses. Review regressions include empty huge-axis allocation and contradictory metadata. Tests are not a proof of correctness or a measure of adoption.
 
