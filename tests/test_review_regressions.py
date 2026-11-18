@@ -83,6 +83,8 @@ class ReviewRegressions(unittest.TestCase):
         self.assertLess(peak, 256000, 'invalid shared containers amplified during serialization')
 
     def test_named_view_error_does_not_invent_stride_cause(self):
+        if not hasattr(torch.Tensor, 'refine_names'):
+            self.skipTest('experimental named tensors are unavailable in torch %s' % torch.__version__)
         with warnings.catch_warnings():
             warnings.simplefilter('ignore')
             x = torch.ones(2).refine_names('N')

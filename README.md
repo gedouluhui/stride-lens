@@ -85,7 +85,7 @@ Python 3.10+ is the supported syntax floor. Local behavior was exercised on Pyth
 python -m pip install build setuptools wheel
 python scripts/verify.py
 python -m build --no-isolation
-python scripts/check_sdist.py dist/stridelens-0.1.0.tar.gz
+python scripts/check_sdist.py dist/stridelens-0.1.1.tar.gz
 ```
 
 Optional real-browser regression (fresh isolated contexts, no shared profile):
