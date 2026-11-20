@@ -1,5 +1,7 @@
 # StrideLens
 
+[![CI](https://github.com/gedouluhui/stride-lens/actions/workflows/ci.yml/badge.svg)](https://github.com/gedouluhui/stride-lens/actions/workflows/ci.yml)
+
 **Your tensors can share storage without sharing a single element. See the difference.**
 
 StrideLens reads real PyTorch CPU tensors and produces a self-contained, interactive layout report. Trace an index to its storage-relative byte offset, see broadcast aliases, compare slices, and inspect actual `view()` attempts. No model, GPU, API key, server, or remote assets.
