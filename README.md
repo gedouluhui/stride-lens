@@ -111,3 +111,34 @@ To contribute: open an Issue with a minimal **synthetic** tensor example, torch/
 ## License and provenance
 
 MIT. Original implementation developed with AI assistance and reviewed through explicit regression tests. PyTorch is an optional separately installed dependency, not bundled. The linked explanatory articles and upstream projects are references, not code/assets copied into this repository.
+
+## Quickstart and support
+
+### Problem
+Show whether real CPU tensors share storage, actually overlap, or can be viewed, without exporting tensor values or raw addresses.
+
+### Install
+```sh
+python -m pip install .
+```
+
+### Success
+```sh
+python -m stridelens demo --out demo.html --json demo.json
+```
+Expected: The synthetic tensor demo completes and writes local HTML/JSON evidence; exit 0.
+
+### Deliberate failure
+```sh
+python -m stridelens render missing-report.json --out should-not-exist.html
+```
+Expected: A missing input is rejected with a nonzero exit and no report is published.
+
+### Evidence and coverage boundaries
+Evidence uses real CPU tensors, direct scalar-address oracles, known overlap/disjoint cases, malformed reports, CLI subprocesses, and optional real-browser checks. Conclusions are bounded by the enumeration budget; unknown is not treated as no overlap. This is not a profiler or a GPU measurement tool.
+
+### Support status
+Version 0.1.1 supports Python 3.10+ and exact CPU strided float32 torch.Tensor inputs. Local behavior was exercised on Python 3.12.3 with torch 2.12.0+cpu; PyTorch is optional for rendering saved evidence. Maintenance is best-effort with no SLA.
+
+### Limitations
+CUDA, sparse, quantized, meta, conjugate/negative, and tensor subclasses are unsupported. Defaults cap 32 tensors, 16 axes, and 4,096 enumerated elements per tensor. Names and shapes remain potentially sensitive metadata.
