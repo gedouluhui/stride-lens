@@ -54,6 +54,13 @@ def run(channel):
                         require(prefix+'actual_viewport', page.evaluate('innerWidth') == width)
                         grid = page.locator('#logical-grid')
                         require(prefix+'bounded_page', grid.locator('button').count() == 64)
+                        basis = page.get_by_role('columnheader', name='Evidence basis')
+                        require(prefix+'basis_header_accessible', basis.count() == 1)
+                        require(prefix+'basis_visible_in_rows', all(
+                            text in page.locator('#pair-body tr').all_inner_texts()[i]
+                            for i, text in enumerate(
+                                pair['basis'] for pair in snapshot['pairs']
+                                if pair['a'] == 'large' or pair['b'] == 'large')))
                         require(prefix+'index_before_grid', page.locator('#index-input').bounding_box()['y'] < grid.bounding_box()['y'])
                         field = page.locator('#index-input')
                         field.fill('63, 63'); field.press('Enter')

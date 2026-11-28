@@ -1,0 +1,29 @@
+{
+  "verified_at": "2026-11-28T03:03:11.154818+00:00",
+  "commit": "ba2e26b82e6a19152363731f7b67d5d67d46369e",
+  "evidence_scope": "pre-commit working tree; commit identifies the validated base revision",
+  "working_tree_clean": false,
+  "tracked_files": 32,
+  "core_source_unchanged": false,
+  "source_acceptance_passed": true,
+  "producer_version": "0.1.1",
+  "validation": {
+    "tests": "48 passed on each of Python 3.10.22 and 3.12.3",
+    "torch": "2.5.1+cpu",
+    "ci_torch_range": ">=2.5,<2.6",
+    "ci_python_matrix": [
+      "3.10",
+      "3.12"
+    ],
+    "browser": "44 checks passed in headless Microsoft Edge at 360px and 1280px",
+    "docs": "8 files and 5 local links passed",
+    "sdist_content_byte_contract": "passed",
+    "tensor_semantics": "18 capture comparisons against the base revision passed"
+  },
+  "distribution_files": {
+    "stridelens-0.1.1-py3-none-any.whl": "4edaa953d4192a79645408213b73e6c272026bc99269df79a3d7eaec6ee3c7e7",
+    "stridelens-0.1.1.tar.gz": "06ff25a6c3abb5acc1482b73d6d96f676b8a510f6e97ff6b07a8eca1d68336d0"
+  },
+  "independent_final_review": "pending; provider quota refusal did not run a review",
+  "remote_configured": true
+}

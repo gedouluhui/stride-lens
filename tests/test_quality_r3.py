@@ -11,6 +11,11 @@ except ModuleNotFoundError:
 
 
 class QualityR3(unittest.TestCase):
+    def test_snapshot_producer_version_matches_package(self):
+        from stridelens import __version__
+        snapshot = capture({'x': torch.zeros(2)}, max_elements=4)
+        self.assertEqual(snapshot['producer']['version'], __version__)
+
     def test_budget_does_not_hide_wrong_view_addresses(self):
         for budget in (1, 2):
             s = capture({'x': torch.arange(4, dtype=torch.float32)[::2]},

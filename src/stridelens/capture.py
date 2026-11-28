@@ -54,6 +54,7 @@ def capture(tensors: Mapping[str, object], *, max_elements: int = 4096,
         import torch
     except ImportError as exc:
         raise RuntimeError('capture requires PyTorch; rendering a saved snapshot does not') from exc
+    from . import __version__
 
     regions, rows, internals, views = {}, [], [], []
     for name, tensor in items:
@@ -135,6 +136,6 @@ def capture(tensors: Mapping[str, object], *, max_elements: int = 4096,
                       'overlap': 'unknown' if count is None else ('yes' if count else 'no'),
                       'overlap_bytes': count, 'basis': basis})
     return {'schema': 'stridelens.snapshot.v1',
-            'producer': {'name': 'stridelens', 'version': '0.1.0', 'torch': str(torch.__version__)},
+            'producer': {'name': 'stridelens', 'version': __version__, 'torch': str(torch.__version__)},
             'limits': {'max_elements': max_elements, 'max_tensors': 32},
             'tensors': rows, 'pairs': pairs, 'views': views}
