@@ -2,7 +2,7 @@
   "schema": "stridelens.snapshot.v1",
   "producer": {
     "name": "stridelens",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "torch": "2.12.0+cpu"
   },
   "limits": {

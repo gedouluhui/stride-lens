@@ -1,29 +1,40 @@
 {
-  "verified_at": "2026-11-28T03:03:11.154818+00:00",
-  "commit": "ba2e26b82e6a19152363731f7b67d5d67d46369e",
-  "evidence_scope": "pre-commit working tree; commit identifies the validated base revision",
-  "working_tree_clean": false,
-  "tracked_files": 32,
-  "core_source_unchanged": false,
-  "source_acceptance_passed": true,
+  "schema_version": 1,
+  "project": "stride-lens",
+  "version": "0.1.1",
+  "evidence_scope": "Local source, browser, documentation, and distribution verification for the 0.1.1 release candidate. Git tags and GitHub Releases are authoritative for published commit identity.",
   "producer_version": "0.1.1",
   "validation": {
-    "tests": "48 passed on each of Python 3.10.22 and 3.12.3",
-    "torch": "2.5.1+cpu",
-    "ci_torch_range": ">=2.5,<2.6",
-    "ci_python_matrix": [
-      "3.10",
-      "3.12"
-    ],
-    "browser": "44 checks passed in headless Microsoft Edge at 360px and 1280px",
+    "source_tests": "48 passed on Python 3.10.22/Torch 2.5.1, Python 3.12.3/Torch 2.5.1, and Python 3.12.3/Torch 2.12.0",
+    "browser": "44 checks passed in headless Microsoft Edge at 360px and 1280px, including exact basis-cell assertions",
     "docs": "8 files and 5 local links passed",
-    "sdist_content_byte_contract": "passed",
-    "tensor_semantics": "18 capture comparisons against the base revision passed"
+    "sdist_content_byte_contract": "passed for the current 0.1.1 source archive",
+    "installed_wheel": "isolated installed-package provenance smoke test passed",
+    "tensor_semantics": "18 complete snapshot comparisons against the base revision passed after normalizing only the producer version",
+    "public_demo": "regenerated at producer version 0.1.1 with visible Evidence basis cells"
+  },
+  "source_acceptance": {
+    "status": "passed",
+    "scope": "Current 0.1.1 source tree and built sdist; historical 0.1.0 evidence was not reused",
+    "commands": [
+      "PYTHONPATH=src python scripts/verify.py",
+      "PYTHONPATH=src python scripts/check_browser.py --channel msedge",
+      "python scripts/check_sdist.py dist/stridelens-0.1.1.tar.gz",
+      "python scripts/check_docs.py"
+    ]
   },
   "distribution_files": {
-    "stridelens-0.1.1-py3-none-any.whl": "4edaa953d4192a79645408213b73e6c272026bc99269df79a3d7eaec6ee3c7e7",
-    "stridelens-0.1.1.tar.gz": "06ff25a6c3abb5acc1482b73d6d96f676b8a510f6e97ff6b07a8eca1d68336d0"
+    "dist/stridelens-0.1.1-py3-none-any.whl": "1ed405d826d0acb52c9ab70c97c6fc7195df3b4169abb1409317d342ee152b5c",
+    "dist/stridelens-0.1.1.tar.gz": "56aac8e0d3a37c49bcb41dcc76a8dcfcf90ec58becdf79478824c4d909feeb95"
   },
-  "independent_final_review": "pending; provider quota refusal did not run a review",
-  "remote_configured": true
+  "public_demo_files": {
+    "docs/demo.html": "ccc3c3e18f4d950cf242004edfc87511300e971fe4215ed1c977a8eb1a2ae513",
+    "docs/demo.json": "cca42ef919053e573030e40e140ec93706a1785c26acad914c548cb452d8d46f"
+  },
+  "limitations": [
+    "Remote CI was not dispatched by this task.",
+    "CI covers Torch >=2.5,<2.6; the package declaration remains Torch >=2.5,<3.",
+    "Linux and the full declared Torch range are not exhaustively verified locally.",
+    "This evidence bundle does not claim an independent final review or external-user adoption."
+  ]
 }
